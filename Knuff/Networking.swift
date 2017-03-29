@@ -10,38 +10,36 @@ import Cocoa
 
 class Networking {
     
-    internal static func sendPushNotification(url: NSURL, key: String, body: NSData) {
+    internal static func sendPushNotification(_ url: URL, key: String, body: Data) {
         
-        // Start the session
-        let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
         
         // Start the request
-        let request = NSMutableURLRequest(URL: url)
+        var request = URLRequest(url: url)
         
         // Set the HTTP Header Content Type and Authorisation
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("key=\(key)", forHTTPHeaderField: "Authorization")
         
         // Add the Body Data and set the Method to POST
-        request.HTTPBody = body
-        request.HTTPMethod = "POST"
+        request.httpBody = body
+        request.httpMethod = "POST"
         
         // Transfer the Session into the DataTask and check if all the data is correct
-        let dataTask = session.dataTaskWithRequest(request) { (data, response, error) in
-            print(data)
-            print(response)
-            print(error)
+        let dataTask = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
+            print(data as Any)
+            print(response as Any)
+            print(error as Any)
             
             // Get the respone for the StatusCode
-            if let httpResponse = response as? NSHTTPURLResponse {
+            if let httpResponse = response as? HTTPURLResponse {
                 
                 print("statusCode: \(httpResponse.statusCode)")
                 
-                dispatch_async(dispatch_get_main_queue(), { 
+                DispatchQueue.main.async(execute: { 
                     // Create an Alert Message to show the Status Code, so the user can see if it works
                     let alert = NSAlert()
                     alert.messageText = "Status Code: \(httpResponse.statusCode)"
-                    alert.alertStyle = NSAlertStyle.InformationalAlertStyle
+                    alert.alertStyle = NSAlertStyle.informational
                     
                     // run the message
                     alert.runModal()
@@ -49,7 +47,8 @@ class Networking {
                 
             }
 
-        }
+        })
+        
         
         // Send the Data
         dataTask.resume()

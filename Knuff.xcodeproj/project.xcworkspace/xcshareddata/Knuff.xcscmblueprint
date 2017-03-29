@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "80B4CF699024FCB46131A586963D91BB1BCBA073",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "150A68F5D81F7D884442B46FF5668B805BE44A33" : 0,
+    "80B4CF699024FCB46131A586963D91BB1BCBA073" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "8E77762C-9D15-4C82-BF5C-98287CC38A28",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "150A68F5D81F7D884442B46FF5668B805BE44A33" : "Knuff\/Vendor\/Fragaria\/",
+    "80B4CF699024FCB46131A586963D91BB1BCBA073" : "Knuff\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Knuff",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Knuff.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/shysaur\/Fragaria.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "150A68F5D81F7D884442B46FF5668B805BE44A33"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/DetarZyberi\/Knuff.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "80B4CF699024FCB46131A586963D91BB1BCBA073"
+    }
+  ]
+}

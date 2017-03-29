@@ -19,7 +19,7 @@ class AndroidNotification: NSViewController, MGSFragariaTextViewDelegate, MGSDra
     @IBOutlet weak var authorisationTextField: NSTextField!
     @IBOutlet weak var tokenTextField: NSTextField!
     @IBOutlet weak var payloadTextField: NSTextField!
-    @IBAction func sendButton(sender: AnyObject) {
+    @IBAction func sendButton(_ sender: AnyObject) {
         getDataFromView()
     }
     
@@ -27,12 +27,12 @@ class AndroidNotification: NSViewController, MGSFragariaTextViewDelegate, MGSDra
         
         let payload = "{\n\t\"notification\":{\n\t\t\"title\":\"Test\",\n\t\t\"text\":\"default\"\n\t}\n}"
         
-        payloadFragaria.syntaxColoured = true
+        payloadFragaria.isSyntaxColoured = true
         payloadFragaria.showsLineNumbers = true
         payloadFragaria.syntaxDefinitionName = "JavaScript"
         payloadFragaria.textViewDelegate = self
         
-        payloadFragaria.string = payload
+        payloadFragaria.string = payload as NSString!
         
     }
     
@@ -61,13 +61,13 @@ class AndroidNotification: NSViewController, MGSFragariaTextViewDelegate, MGSDra
             attentionAlert("Your Payload is empty", title: "Attention")
             return
         }
-        print(jsonString)
+        print(jsonString!)
         
         // Turn the Json String into NSData
-        guard let data = jsonString.dataUsingEncoding(NSUTF8StringEncoding) else {return}
+        guard let data = jsonString?.data(using: String.Encoding.utf8.rawValue) else {return}
         
         // Check if is the Json Payload valid
-        guard var jsonObject: [String: AnyObject]  = try! NSJSONSerialization.JSONObjectWithData(data, options: []) as! [String : AnyObject] else {
+        guard var jsonObject  = try! JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] else {
             //TODO: Inform user that json format is invalid.
             attentionAlert("Your json is invalid", title: "Attention")
             return
@@ -79,18 +79,18 @@ class AndroidNotification: NSViewController, MGSFragariaTextViewDelegate, MGSDra
             return
         }
         
-        let message = FCMMessage(registration_ids: tokenTextField.stringValue.componentsSeparatedByString(","))
+        let message = FCMMessage(registration_ids: tokenTextField.stringValue.components(separatedBy: ","))
         print("message: \(message)")
         
         // Add the token to the JsonObject
-        jsonObject["registration_ids"] = message.registration_ids
+        jsonObject["registration_ids"] = message.registration_ids as AnyObject?
         
         print("jsonObject: \(jsonObject)")
         
-        let jsonData = try! NSJSONSerialization.dataWithJSONObject(jsonObject, options: [])
+        let jsonData = try! JSONSerialization.data(withJSONObject: jsonObject, options: [])
         
         // Put the URL for the Notification into a Constant
-        guard let url = NSURL(string: "https://fcm.googleapis.com/fcm/send") else {return}
+        guard let url = URL(string: "https://fcm.googleapis.com/fcm/send") else {return}
         
         // Start the function to send the Data
         Networking.sendPushNotification(url, key: key, body: jsonData)
@@ -99,12 +99,12 @@ class AndroidNotification: NSViewController, MGSFragariaTextViewDelegate, MGSDra
     
     
     // Alert function
-    func attentionAlert(message: String, title: String) {
+    func attentionAlert(_ message: String, title: String) {
         let alert = NSAlert()
         alert.messageText = message
         alert.window.title = title
-        alert.addButtonWithTitle("OK")
-        alert.alertStyle = NSAlertStyle.WarningAlertStyle
+        alert.addButton(withTitle: "OK")
+        alert.alertStyle = NSAlertStyle.warning
         alert.runModal()
     }
 }
