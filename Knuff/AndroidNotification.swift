@@ -61,10 +61,10 @@ class AndroidNotification: NSViewController, MGSFragariaTextViewDelegate, MGSDra
             attentionAlert("Your Payload is empty", title: "Attention")
             return
         }
-        print(jsonString!)
+        print(jsonString)
         
         // Turn the Json String into NSData
-        guard let data = jsonString?.data(using: String.Encoding.utf8.rawValue) else {return}
+        guard let data = jsonString.data(using: String.Encoding.utf8.rawValue) else {return}
         
         // Check if is the Json Payload valid
         guard var jsonObject  = try! JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] else {
